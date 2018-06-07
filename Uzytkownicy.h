@@ -7,9 +7,10 @@ using namespace std;
 
 class Uzytkownicy {
 private:
-    Uzytkownik tymczasowyUzytkownik;
+    Uzytkownik nowyUzytkownik;
     vector <Uzytkownik> wszyscyUzytkownicy;
 public:
-    void rejestrujNowegoUzytkownika ();
-    void wyswietlDaneWszystkichUzytkonikow ();
+    int zwrocNajwyzszeIDUzytkownika (vector <Uzytkownik> &Uzytkownicy);
+    void rejestracja ();
+    void dopiszDoPliku();
 };

@@ -1,0 +1,29 @@
+# depslib dependency file v1.0
+1528407713 source:c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\main.cpp
+	<iostream>
+	<string>
+	<vector>
+	"Uzytkownicy.h"
+
+1528406757 c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\uzytkownik.h
+	<iostream>
+	<string>
+
+1528406704 source:c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\uzytkownik.cpp
+	<iostream>
+	<string>
+	"Uzytkownik.h"
+
+1528407997 source:c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\uzytkownicy.cpp
+	<iostream>
+	<string>
+	<vector>
+	"Uzytkownicy.h"
+	<fstream>
+
+1528407755 c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\uzytkownicy.h
+	<iostream>
+	<string>
+	<vector>
+	"Uzytkownik.h"
+

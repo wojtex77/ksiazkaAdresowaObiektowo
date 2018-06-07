@@ -8,7 +8,10 @@ using namespace std;
 int main()
 {
     Uzytkownicy wszyscyUzytkownicy;
-    wszyscyUzytkownicy.rejestrujNowegoUzytkownika();
-    wszyscyUzytkownicy.wyswietlDaneWszystkichUzytkonikow();
+    int liczba=0;
+    while (1){
+        wszyscyUzytkownicy.rejestracja();
+        wszyscyUzytkownicy.dopiszDoPliku();
+    }
     return 0;
 }
