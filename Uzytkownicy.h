@@ -12,12 +12,16 @@ private:
     vector <Uzytkownik> wszyscyUzytkownicy;
     void wczytajDoWektora(vector <Uzytkownik> &Uzytkownicy);
     void rozdzielLinieNaCechy(string linia, Uzytkownik wczytanyUzytkownik);
-    int konwertujNaInt (string liczbaStringiem);
-public:
     int zwrocNajwyzszeIDUzytkownika (vector <Uzytkownik> &Uzytkownicy);
-    void rejestracja ();
     void dopiszDoPliku();
     void wczytajZPliku();
+    int konwertujNaInt (string liczbaStringiem);
+    int IdZalogowanegoUzytkownika;
+    int zweryfikujUzytkownika(string login, string haslo);
+public:
+    void rejestracja ();
     void wyswietlWszystkichUzytkownikow ();
+    int zwrocIdZalogowanegoUzytkownika ();
+    void logowanie ();
     Uzytkownicy ();
 };

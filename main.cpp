@@ -7,8 +7,8 @@
 using namespace std;
 
 int main() {
-    Uzytkownicy uzytkownicyKsiazki;
-    uzytkownicyKsiazki.rejestracja();
-    uzytkownicyKsiazki.wyswietlWszystkichUzytkownikow();
+
+Uzytkownicy uzytkownicyKsiazki;
+    uzytkownicyKsiazki.logowanie();
     return 0;
 }

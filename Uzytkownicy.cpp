@@ -4,6 +4,7 @@
 #include "Uzytkownicy.h"
 #include <fstream>
 #include <cstdlib>
+#include <windows.h>
 
 
 using namespace std;
@@ -107,6 +108,46 @@ void Uzytkownicy::wyswietlWszystkichUzytkownikow(){
     }
 };
 
+int Uzytkownicy::zwrocIdZalogowanegoUzytkownika (){
+    return IdZalogowanegoUzytkownika;
+}
+
+
+
+void Uzytkownicy::logowanie (){
+    string login, haslo;
+    int idZwrotne=0;
+    system("cls");
+    cout << "KSIAZKA ADRESOWA -> LOGOWANIE" << endl<<endl;
+    cout << "login: "; cin >> login;
+    cout << "haslo: "; cin >> haslo;
+    idZwrotne=zweryfikujUzytkownika(login, haslo);
+    if(idZwrotne!=0) cout << "ZALOGOWANO!!!";
+    else cout << "Niepoprawne dane logowania";
+    Sleep(1500);
+};
+
+int Uzytkownicy::zweryfikujUzytkownika(string login, string haslo){
+    int IDZgodnegoLoginu=0;
+    int i=0;
+    bool czyZnalezionoUzytkownika=false;
+    bool czyZgodneHaslo=false;
+    int iloscWpisow=wszyscyUzytkownicy.size();
+    while ((czyZnalezionoUzytkownika==false)&&(i<iloscWpisow)){
+        if (wszyscyUzytkownicy[i].zwrocLogin()==login)
+        {
+            IDZgodnegoLoginu=wszyscyUzytkownicy[i].zwrocID();
+            czyZnalezionoUzytkownika=true;
+        }
+        i++;
+    }
+    if (czyZnalezionoUzytkownika==false) return IDZgodnegoLoginu;
+    if (haslo==wszyscyUzytkownicy[IDZgodnegoLoginu-1].zwrocHaslo()) czyZgodneHaslo=true;
+    if ((czyZnalezionoUzytkownika==true)&&(czyZgodneHaslo==true)) return IDZgodnegoLoginu;
+    else return 0;
+}
+
 Uzytkownicy::Uzytkownicy(){
     wczytajZPliku();
+    IdZalogowanegoUzytkownika=0;
 }
