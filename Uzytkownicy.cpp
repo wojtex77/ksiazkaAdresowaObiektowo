@@ -54,20 +54,18 @@ void Uzytkownicy::wczytajDoWektora(vector <Uzytkownik> &Uzytkownicy) {
     fstream plik;
     string linia;
     plik.open("users.txt",ios::in);
-    if (plik.good() == true)
-    {
+    if (plik.good() == true) {
         do {
             getline(plik,linia);
             if (linia.empty());
             else rozdzielLinieNaCechy(linia, wczytanyUzytkownik);
-        }
-        while (!plik.eof());
+        } while (!plik.eof());
     }
     plik.close();
     plik.clear();
 }
 
-void Uzytkownicy::wczytajZPliku(){
+void Uzytkownicy::wczytajZPliku() {
     wczytajDoWektora(wszyscyUzytkownicy);
 }
 
@@ -76,7 +74,7 @@ int Uzytkownicy::konwertujNaInt (string liczbaStringiem) {
     return liczba;
 }
 
-void Uzytkownicy::rozdzielLinieNaCechy(string linia, Uzytkownik wczytanyUzytkownik){
+void Uzytkownicy::rozdzielLinieNaCechy(string linia, Uzytkownik wczytanyUzytkownik) {
     int i=0, dlugoscLogin, dlugoscHaslo;
     string id, login, haslo;
     vector <int> pozycjeKoncaCechy;
@@ -98,44 +96,44 @@ void Uzytkownicy::rozdzielLinieNaCechy(string linia, Uzytkownik wczytanyUzytkown
     wszyscyUzytkownicy.push_back(wczytanyUzytkownik);
 }
 
-void Uzytkownicy::wyswietlWszystkichUzytkownikow(){
+void Uzytkownicy::wyswietlWszystkichUzytkownikow() {
     cout << "Wszyscy uzytkownicy:"<<endl;
     int ilosc=wszyscyUzytkownicy.size();
-    for (int i=0; i<ilosc; i++){
+    for (int i=0; i<ilosc; i++) {
         cout << wszyscyUzytkownicy[i].zwrocID()<< " ";
         cout << wszyscyUzytkownicy[i].zwrocLogin()<< " ";
         cout << wszyscyUzytkownicy[i].zwrocHaslo()<< " "<<endl;
     }
 };
 
-int Uzytkownicy::zwrocIdZalogowanegoUzytkownika (){
+int Uzytkownicy::zwrocIdZalogowanegoUzytkownika () {
     return IdZalogowanegoUzytkownika;
 }
 
-
-
-void Uzytkownicy::logowanie (){
+void Uzytkownicy::logowanie () {
     string login, haslo;
     int idZwrotne=0;
     system("cls");
     cout << "KSIAZKA ADRESOWA -> LOGOWANIE" << endl<<endl;
-    cout << "login: "; cin >> login;
-    cout << "haslo: "; cin >> haslo;
+    cout << "login: ";
+    cin >> login;
+    cout << "haslo: ";
+    cin >> haslo;
     idZwrotne=zweryfikujUzytkownika(login, haslo);
     if(idZwrotne!=0) cout << "ZALOGOWANO!!!";
     else cout << "Niepoprawne dane logowania";
+    IdZalogowanegoUzytkownika=idZwrotne;
     Sleep(1500);
 };
 
-int Uzytkownicy::zweryfikujUzytkownika(string login, string haslo){
+int Uzytkownicy::zweryfikujUzytkownika(string login, string haslo) {
     int IDZgodnegoLoginu=0;
     int i=0;
     bool czyZnalezionoUzytkownika=false;
     bool czyZgodneHaslo=false;
     int iloscWpisow=wszyscyUzytkownicy.size();
-    while ((czyZnalezionoUzytkownika==false)&&(i<iloscWpisow)){
-        if (wszyscyUzytkownicy[i].zwrocLogin()==login)
-        {
+    while ((czyZnalezionoUzytkownika==false)&&(i<iloscWpisow)) {
+        if (wszyscyUzytkownicy[i].zwrocLogin()==login) {
             IDZgodnegoLoginu=wszyscyUzytkownicy[i].zwrocID();
             czyZnalezionoUzytkownika=true;
         }
@@ -147,7 +145,60 @@ int Uzytkownicy::zweryfikujUzytkownika(string login, string haslo){
     else return 0;
 }
 
-Uzytkownicy::Uzytkownicy(){
+void Uzytkownicy::zmienHaslo(int idUzytkownika) {
+    int iloscWpisow=wszyscyUzytkownicy.size();
+    int indeksZalogowanegoUzytkownika=0;
+    int i=0;
+    int aktualneID=wszyscyUzytkownicy[i].zwrocID();
+    string noweHaslo="";
+    if (idUzytkownika!=0){
+        while (idUzytkownika!=aktualneID) {
+            i++;
+            aktualneID=wszyscyUzytkownicy[i].zwrocID();
+        }
+        indeksZalogowanegoUzytkownika=i;
+        cout <<endl<< "wpisz nowe haslo: ";
+        cin >> noweHaslo;
+        wszyscyUzytkownicy[i].ustawHaslo(noweHaslo);
+        zapiszZmienioneHasloDoPliku();
+    }
+    else cout <<endl<< "Najpierw sie zaloguj!" << endl;
+    Sleep(2000);
+}
+
+void Uzytkownicy::zapiszZmienioneHasloDoPliku() {
+    fstream plik;
+    int i=0;
+    int iloscWpisow=wszyscyUzytkownicy.size();
+    plik.open("temp.txt",ios::out);
+    if (plik.good() == true) {
+        /*   plik.seekg(0, ios::end);
+           if (plik.tellg() != 0) {
+               plik << endl;
+           }*/
+        while (i<iloscWpisow) {
+            plik<<wszyscyUzytkownicy[i].zwrocID()<<"|"<<wszyscyUzytkownicy[i].zwrocLogin()<<"|"<<wszyscyUzytkownicy[i].zwrocHaslo()<<"|";
+            i++;
+            if (i!=iloscWpisow) plik<<endl;
+        }
+
+    } else cout << "wystapil problem z plikiem";
+    plik.close();
+    plik.clear();
+
+    remove("users.txt");
+    rename("temp.txt","users.txt");
+
+}
+
+void Uzytkownicy::wyloguj () {
+    IdZalogowanegoUzytkownika=0;
+    cout << endl << "WYLOGOWANO"<<endl;
+    Sleep(1500);
+}
+
+Uzytkownicy::Uzytkownicy() {
     wczytajZPliku();
     IdZalogowanegoUzytkownika=0;
+    indeksZalogowanegoUzytkownika=0;
 }

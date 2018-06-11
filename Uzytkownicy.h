@@ -9,6 +9,7 @@ class Uzytkownicy {
 private:
     Uzytkownik nowyUzytkownik;
     Uzytkownik wczytanyUzytkownik;
+    int indeksZalogowanegoUzytkownika;
     vector <Uzytkownik> wszyscyUzytkownicy;
     void wczytajDoWektora(vector <Uzytkownik> &Uzytkownicy);
     void rozdzielLinieNaCechy(string linia, Uzytkownik wczytanyUzytkownik);
@@ -18,10 +19,13 @@ private:
     int konwertujNaInt (string liczbaStringiem);
     int IdZalogowanegoUzytkownika;
     int zweryfikujUzytkownika(string login, string haslo);
+    void zapiszZmienioneHasloDoPliku();
 public:
     void rejestracja ();
     void wyswietlWszystkichUzytkownikow ();
     int zwrocIdZalogowanegoUzytkownika ();
     void logowanie ();
+    void zmienHaslo(int idUzytkownika);
+    void wyloguj ();
     Uzytkownicy ();
 };
