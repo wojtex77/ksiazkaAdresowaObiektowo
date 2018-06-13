@@ -18,9 +18,11 @@ private:
     void wczytajZPliku();
     int konwertujNaInt (string liczbaStringiem);
     int IdZalogowanegoUzytkownika;
-    int zweryfikujUzytkownika(string login, string haslo);
+    int zwrocIDZgodnegoUzytkownika(string login, string haslo);
     void zapiszZmienioneHasloDoPliku();
+    bool SprawdzIstnienieLoginu (vector <Uzytkownik> &Uzytkownicy, string sprawdzanyLogin);
 public:
+    void ustawIdZalogowanegoUzytkownika (int Id);
     void rejestracja ();
     void wyswietlWszystkichUzytkownikow ();
     int zwrocIdZalogowanegoUzytkownika ();

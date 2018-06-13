@@ -27,13 +27,20 @@ void Uzytkownicy::rejestracja () {
 
     cout << "Podaj login: ";
     cin >> login;
-    nowyUzytkownik.ustawLogin(login);
-    cout << "Podaj haslo: ";
-    cin >> haslo;
-    nowyUzytkownik.ustawHaslo(haslo);
-    nowyUzytkownik.ustawID(idUzytkownika+1);
-    wszyscyUzytkownicy.push_back(nowyUzytkownik);
-    dopiszDoPliku();
+    if(SprawdzIstnienieLoginu(wszyscyUzytkownicy, login)==true){
+        cout << "Taki login juz istnieje";
+        Sleep(1500);
+    }
+    else{
+        nowyUzytkownik.ustawLogin(login);
+        cout << "Podaj haslo: ";
+        cin >> haslo;
+        nowyUzytkownik.ustawHaslo(haslo);
+        nowyUzytkownik.ustawID(idUzytkownika+1);
+        wszyscyUzytkownicy.push_back(nowyUzytkownik);
+        dopiszDoPliku();
+    }
+
 }
 
 void Uzytkownicy::dopiszDoPliku() {
@@ -110,23 +117,26 @@ int Uzytkownicy::zwrocIdZalogowanegoUzytkownika () {
     return IdZalogowanegoUzytkownika;
 }
 
+void Uzytkownicy::ustawIdZalogowanegoUzytkownika (int Id) {
+    IdZalogowanegoUzytkownika=Id;
+}
+
 void Uzytkownicy::logowanie () {
     string login, haslo;
     int idZwrotne=0;
-    system("cls");
-    cout << "KSIAZKA ADRESOWA -> LOGOWANIE" << endl<<endl;
+    cout << "Podaj dane logowania:" << endl<<endl;
     cout << "login: ";
     cin >> login;
     cout << "haslo: ";
     cin >> haslo;
-    idZwrotne=zweryfikujUzytkownika(login, haslo);
+    idZwrotne=zwrocIDZgodnegoUzytkownika(login, haslo);
     if(idZwrotne!=0) cout << "ZALOGOWANO!!!";
     else cout << "Niepoprawne dane logowania";
     IdZalogowanegoUzytkownika=idZwrotne;
     Sleep(1500);
 };
 
-int Uzytkownicy::zweryfikujUzytkownika(string login, string haslo) {
+int Uzytkownicy::zwrocIDZgodnegoUzytkownika(string login, string haslo) {
     int IDZgodnegoLoginu=0;
     int i=0;
     bool czyZnalezionoUzytkownika=false;
@@ -161,6 +171,7 @@ void Uzytkownicy::zmienHaslo(int idUzytkownika) {
         cin >> noweHaslo;
         wszyscyUzytkownicy[i].ustawHaslo(noweHaslo);
         zapiszZmienioneHasloDoPliku();
+        cout << endl << "Haslo Zmienione";
     }
     else cout <<endl<< "Najpierw sie zaloguj!" << endl;
     Sleep(2000);
@@ -195,6 +206,15 @@ void Uzytkownicy::wyloguj () {
     IdZalogowanegoUzytkownika=0;
     cout << endl << "WYLOGOWANO"<<endl;
     Sleep(1500);
+}
+
+bool Uzytkownicy::SprawdzIstnienieLoginu (vector <Uzytkownik> &Uzytkownicy, string sprawdzanyLogin){
+    int iloscWpisow=Uzytkownicy.size();
+    for (int i=0; i<iloscWpisow; i++){
+        if (Uzytkownicy[i].zwrocLogin()==sprawdzanyLogin)
+            return true;
+    }
+    return false;
 }
 
 Uzytkownicy::Uzytkownicy() {
