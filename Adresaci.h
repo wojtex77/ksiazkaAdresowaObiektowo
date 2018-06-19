@@ -9,8 +9,8 @@ private:
     Adresat pojedynczyAdresat;
     vector <Adresat> wczytaniAdresaci;
 public:
-    void dodajAdresata (int idZalogowanegoUzytkonika);
-    void wyswietlWszystkichUzytkownikow ();
-    //friend void wczytajZPliku();
+    int zwrocNajwyzszeIdKontaktu ();
+    void dodajAdresata (int idZalogowanegoUzytkonika, int najwyzszeIdKontaktu);
+    void wyswietlWszystkichAdresatow ();
     Adresaci ();
 };

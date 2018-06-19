@@ -44,7 +44,7 @@ int main() {
             wyborMenuKsiazki=menuKsiazki();
             switch (wyborMenuKsiazki) {
             case '1': {
-                adresaciKsiazki.dodajAdresata(uzytkownicyKsiazki.zwrocIdZalogowanegoUzytkownika());
+                adresaciKsiazki.dodajAdresata(uzytkownicyKsiazki.zwrocIdZalogowanegoUzytkownika(), adresaciKsiazki.zwrocNajwyzszeIdKontaktu());
                 Sleep(1500);
                 break;
             }
@@ -57,7 +57,7 @@ int main() {
                 break;
             }
             case '6':{
-                adresaciKsiazki.wyswietlWszystkichUzytkownikow();
+                adresaciKsiazki.wyswietlWszystkichAdresatow();
                 system("pause");
                 break;
             }
