@@ -2,11 +2,14 @@ using namespace std;
 
 class Adresat {
 private:
-    int idAdresata;
+    int idAdresata, idUzytkownika;
     string imieAdresata, nazwiskoAdresata, numerTelefonu, emailAdresata, adresAdresata;
 public:
     void ustawId (int Id);
     int zwrocId ();
+
+    void ustawIdUzytkownika (int Id);
+    int zwrocIdUzytkownika ();
 
     void ustawImie (string imie);
     string zwrocImie ();

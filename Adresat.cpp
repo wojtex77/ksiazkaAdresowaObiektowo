@@ -9,6 +9,12 @@ void Adresat::ustawId(int id){
 int Adresat::zwrocId(){
     return idAdresata;
 }
+void Adresat::ustawIdUzytkownika(int id){
+    idUzytkownika=id;
+}
+int Adresat::zwrocIdUzytkownika(){
+    return idUzytkownika;
+}
 void Adresat::ustawImie(string imie){
     imieAdresata=imie;
 }

@@ -1,5 +1,5 @@
-#include "Adresat.h"
 #include <vector>
+#include "PlikAdresatow.h"
 
 
 using namespace std;
@@ -11,6 +11,6 @@ private:
 public:
     void dodajAdresata (int idZalogowanegoUzytkonika);
     void wyswietlWszystkichUzytkownikow ();
-
+    //friend void wczytajZPliku();
     Adresaci ();
 };

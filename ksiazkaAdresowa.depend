@@ -26,27 +26,29 @@
 	"Uzytkownik.h"
 	<vector>
 
-1529437402 source:c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\plikadresatow.cpp
+1529442950 source:c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\plikadresatow.cpp
 	"PlikAdresatow.h"
 	<fstream>
 	<iostream>
 
-1529436533 source:c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\adresat.cpp
+1529441535 source:c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\adresat.cpp
 	<iostream>
 	"Adresat.h"
 
-1529355302 c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\adresat.h
+1529441535 c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\adresat.h
 
-1529439534 source:c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\adresaci.cpp
+1529440034 source:c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\adresaci.cpp
 	<iostream>
 	<vector>
 	"Adresaci.h"
 
-1529439236 c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\adresaci.h
-	"Adresat.h"
+1529442729 c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\adresaci.h
 	<vector>
+	"PlikAdresatow.h"
 
-1529438010 c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\plikadresatow.h
+1529442961 c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\plikadresatow.h
 	<iostream>
 	"Adresat.h"
+	<vector>
+	<cstdlib>
 

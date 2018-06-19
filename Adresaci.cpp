@@ -5,14 +5,21 @@
 
 using namespace std;
 
-Adresaci::Adresaci(){}
+Adresaci::Adresaci(){
+    PlikAdresatow plik;
+    plik.wczytajZPliku(wczytaniAdresaci);
+}
 
-void Adresaci::wyswietlWszystkichUzytkownikow(){
-    cout << wczytaniAdresaci[0].zwrocImie() << " " << wczytaniAdresaci[0].zwrocNazwisko() <<endl;
-    cout << wczytaniAdresaci[0].zwrocNumerTelefonu() << endl;
-    cout << wczytaniAdresaci[0].zwrocEmail() << endl;
-    cout << wczytaniAdresaci[0].zwrocAdres() << endl;
-
+void Adresaci::wyswietlWszystkichUzytkownikow() {
+    if (wczytaniAdresaci.empty()!=true) {
+        int iloscWpisow=wczytaniAdresaci.size();
+        for (int i=0; i<iloscWpisow; i++) {
+            cout << wczytaniAdresaci[i].zwrocImie() << " " << wczytaniAdresaci[i].zwrocNazwisko() <<endl;
+            cout << wczytaniAdresaci[i].zwrocNumerTelefonu() << endl;
+            cout << wczytaniAdresaci[i].zwrocEmail() << endl;
+            cout << wczytaniAdresaci[i].zwrocAdres() << endl;
+        }
+    }
 }
 
 void Adresaci::dodajAdresata (int idZalogowanegoUzytkownika){
@@ -36,5 +43,7 @@ void Adresaci::dodajAdresata (int idZalogowanegoUzytkownika){
     pojedynczyAdresat.ustawAdres(adres);
 
     wczytaniAdresaci.push_back(pojedynczyAdresat);
+    PlikAdresatow plik;
+    plik.dopiszDoPliku(pojedynczyAdresat,idZalogowanegoUzytkownika);
 
 }

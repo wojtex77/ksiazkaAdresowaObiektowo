@@ -1,11 +1,19 @@
 #include "PlikAdresatow.h"
-
-//#include "Adresat.h"
 #include <fstream>
 #include <iostream>
 
 
 using namespace std;
+
+
+/*PlikAdresatow::PlikAdresatow(){
+    wczytajZPliku(wczytaniAdresaci);
+}*/
+
+int PlikAdresatow::konwertujNaInt (string liczbaStringiem) {
+    int liczba = atoi(liczbaStringiem.c_str());
+    return liczba;
+}
 
 void PlikAdresatow::dopiszDoPliku (Adresat nowyAdresat, int IdUzytkownika){
     int i=0;
@@ -16,9 +24,61 @@ void PlikAdresatow::dopiszDoPliku (Adresat nowyAdresat, int IdUzytkownika){
         if (plik.tellg() != 0) {
             plik << endl;
         }
-        plik<<nowyAdresat.zwrocId()<<"|"<<wszyscyUzytkownicy.zwrocIdZalogowanegoUzytkownika()<<"|"<<nowyAdresat.zwrocImie()<<"|"<<nowyAdresat.zwrocNazwisko()<<"|"<<nowyAdresat.zwrocNumerTelefonu()<<"|"<<nowyAdresat.zwrocEmail()<<"|"<<nowyAdresat.zwrocAdres()<<"|";
+        plik<<nowyAdresat.zwrocId()<<"|"<<IdUzytkownika<<"|"<<nowyAdresat.zwrocImie()<<"|"<<nowyAdresat.zwrocNazwisko()<<"|"<<nowyAdresat.zwrocNumerTelefonu()<<"|"<<nowyAdresat.zwrocEmail()<<"|"<<nowyAdresat.zwrocAdres()<<"|";
         i++;
     } else cout << "wystapil problem z plikiem";
     plik.close();
     plik.clear();
+}
+
+void PlikAdresatow::wczytajZPliku(vector <Adresat> &wczytaniAdresaci){
+    string linia;
+    fstream plik;
+    plik.open("kontakty.txt",ios::in);
+    if (plik.good() == true)
+    {
+        do {
+            getline(plik,linia);
+            if (linia.empty());
+            else rozdzielLinieNaCechy(wczytaniAdresaci, linia);
+        }
+        while (!plik.eof());
+        plik.close();
+        plik.clear();
+    }
+}
+
+void PlikAdresatow::rozdzielLinieNaCechy (vector <Adresat> &wczytaniAdresaci, string linia){
+    int i=0,dlugoscIDUzytkownika, dlugoscImie, dlugoscNazwisko, dlugoscTelefon, dlugoscEmail, dlugoscAdres;
+    string id,imie,nazwisko,telefon,email,adres;
+    vector <int> pozycjeKoncaCechy;
+    Adresat pojedynczyAdresat;
+    int dlugoscLinii = linia.length();
+    while (i<dlugoscLinii) {
+        char znak=linia[i];
+        if (znak=='|')
+            pozycjeKoncaCechy.push_back(i);
+        i++;
+    }
+    pojedynczyAdresat.ustawId(konwertujNaInt(linia.substr(0,pozycjeKoncaCechy[0])));
+
+    dlugoscIDUzytkownika=pozycjeKoncaCechy[1]-pozycjeKoncaCechy[0]-1;
+    pojedynczyAdresat.ustawIdUzytkownika(konwertujNaInt(linia.substr(pozycjeKoncaCechy[0]+1,dlugoscIDUzytkownika)));
+
+    dlugoscImie=pozycjeKoncaCechy[2]-pozycjeKoncaCechy[1]-1;
+    pojedynczyAdresat.ustawImie(linia.substr(pozycjeKoncaCechy[1]+1,dlugoscImie));
+
+    dlugoscNazwisko=pozycjeKoncaCechy[3]-pozycjeKoncaCechy[2]-1;
+    pojedynczyAdresat.ustawNazwisko(linia.substr(pozycjeKoncaCechy[2]+1,dlugoscNazwisko));
+
+    dlugoscTelefon=pozycjeKoncaCechy[4]-pozycjeKoncaCechy[3]-1;
+    pojedynczyAdresat.ustawNumerTelefonu(linia.substr(pozycjeKoncaCechy[3]+1,dlugoscTelefon));
+
+    dlugoscEmail=pozycjeKoncaCechy[5]-pozycjeKoncaCechy[4]-1;
+    pojedynczyAdresat.ustawEmail(linia.substr(pozycjeKoncaCechy[4]+1,dlugoscEmail));
+
+    dlugoscAdres=pozycjeKoncaCechy[6]-pozycjeKoncaCechy[5]-1;
+    pojedynczyAdresat.ustawAdres(linia.substr(pozycjeKoncaCechy[5]+1,dlugoscAdres));
+
+    wczytaniAdresaci.push_back(pojedynczyAdresat);
 }

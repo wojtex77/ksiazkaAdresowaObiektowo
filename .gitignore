@@ -1,6 +1,7 @@
 # Prerequisites
 *.layout
 *.d
+*.txt
 
 # Compiled Object files
 *.slo
