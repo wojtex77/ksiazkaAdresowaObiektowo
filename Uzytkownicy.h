@@ -1,7 +1,5 @@
-#include <iostream>
-#include <string>
-#include <vector>
 #include "Uzytkownik.h"
+#include <vector>
 
 using namespace std;
 
@@ -30,4 +28,5 @@ public:
     void zmienHaslo(int idUzytkownika);
     void wyloguj ();
     Uzytkownicy ();
+    ~Uzytkownicy();
 };

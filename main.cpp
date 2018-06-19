@@ -3,17 +3,19 @@
 #include <vector>
 #include <windows.h>
 #include "Uzytkownicy.h"
+#include "Adresaci.h"
 
 using namespace std;
 
 char menuGlowne ();
-char wyswietlMenuKsiazki();
+char menuKsiazki();
 
 int main() {
     char wyborMenuGlowne;
     char wyborMenuKsiazki;
 
     Uzytkownicy uzytkownicyKsiazki;
+    Adresaci adresaciKsiazki;
 
     while (1) {
         if (uzytkownicyKsiazki.zwrocIdZalogowanegoUzytkownika()==0) {
@@ -39,10 +41,10 @@ int main() {
             }
             }
         } else {
-            wyborMenuKsiazki=wyswietlMenuKsiazki();
+            wyborMenuKsiazki=menuKsiazki();
             switch (wyborMenuKsiazki) {
             case '1': {
-                cout << "Kiedys dodam";
+                adresaciKsiazki.dodajAdresata(uzytkownicyKsiazki.zwrocIdZalogowanegoUzytkownika());
                 Sleep(1500);
                 break;
             }
@@ -52,6 +54,11 @@ int main() {
             }
             case '0':{
                 uzytkownicyKsiazki.wyloguj();
+                break;
+            }
+            case '6':{
+                adresaciKsiazki.wyswietlWszystkichUzytkownikow();
+                system("pause");
                 break;
             }
             default:
@@ -80,7 +87,7 @@ char menuGlowne () {
     return wybor;
 }
 
-char wyswietlMenuKsiazki() {
+char menuKsiazki() {
     char wybor;
 
     system("cls");

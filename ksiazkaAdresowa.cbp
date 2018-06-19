@@ -32,6 +32,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Adresaci.cpp" />
+		<Unit filename="Adresaci.h" />
+		<Unit filename="Adresat.cpp" />
+		<Unit filename="Adresat.h" />
+		<Unit filename="PlikAdresatow.cpp" />
+		<Unit filename="PlikAdresatow.h" />
 		<Unit filename="Uzytkownicy.cpp" />
 		<Unit filename="Uzytkownicy.h" />
 		<Unit filename="Uzytkownik.cpp" />

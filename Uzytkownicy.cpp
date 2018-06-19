@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <vector>
 #include "Uzytkownicy.h"
 #include <fstream>
 #include <cstdlib>
@@ -156,8 +155,6 @@ int Uzytkownicy::zwrocIDZgodnegoUzytkownika(string login, string haslo) {
 }
 
 void Uzytkownicy::zmienHaslo(int idUzytkownika) {
-    int iloscWpisow=wszyscyUzytkownicy.size();
-    int indeksZalogowanegoUzytkownika=0;
     int i=0;
     int aktualneID=wszyscyUzytkownicy[i].zwrocID();
     string noweHaslo="";
@@ -221,4 +218,8 @@ Uzytkownicy::Uzytkownicy() {
     wczytajZPliku();
     IdZalogowanegoUzytkownika=0;
     indeksZalogowanegoUzytkownika=0;
+}
+
+Uzytkownicy::~Uzytkownicy() {
+    wszyscyUzytkownicy.clear();
 }
