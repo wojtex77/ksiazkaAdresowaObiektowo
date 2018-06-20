@@ -15,7 +15,6 @@ int main() {
     char wyborMenuKsiazki;
 
     Uzytkownicy uzytkownicyKsiazki;
-    Adresaci adresaciKsiazki;
 
     while (1) {
         if (uzytkownicyKsiazki.zwrocIdZalogowanegoUzytkownika()==0) {
@@ -41,11 +40,20 @@ int main() {
             }
             }
         } else {
+            Adresaci adresaciKsiazki(uzytkownicyKsiazki.zwrocIdZalogowanegoUzytkownika());
             wyborMenuKsiazki=menuKsiazki();
             switch (wyborMenuKsiazki) {
             case '1': {
                 adresaciKsiazki.dodajAdresata(uzytkownicyKsiazki.zwrocIdZalogowanegoUzytkownika(), adresaciKsiazki.zwrocNajwyzszeIdKontaktu());
-                Sleep(1500);
+                Sleep(500);
+                break;
+            }
+            case '2': {
+                adresaciKsiazki.szukajPoImieniu();
+                break;
+            }
+            case '3': {
+                adresaciKsiazki.szukajPoNazwisku();
                 break;
             }
             case '7':{

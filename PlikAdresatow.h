@@ -9,13 +9,12 @@ using namespace std;
 
 class PlikAdresatow {
 private:
-
-    void rozdzielLinieNaCechy (vector <Adresat> &wczytaniAdresaci, string linia);
+    void rozdzielLinieNaCechy (vector <Adresat> &wczytaniAdresaci, string linia, int idUzytkownika);
+    int wczytajIdZLiniiPliku (string linia);
     int konwertujNaInt (string liczbaStringiem);
-
-
 public:
     void dopiszDoPliku (Adresat nowyAdresat, int IdUzytkownika);
-    void wczytajZPliku (vector <Adresat> &wczytaniAdresaci);
-    //PlikAdresatow();
+    void wczytajZPliku (vector <Adresat> &wczytaniAdresaci, int idUzytkownika);
+    int zwrocNajwyzszeIdZPliku ();
+
 };

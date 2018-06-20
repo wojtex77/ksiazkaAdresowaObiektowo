@@ -5,10 +5,42 @@
 
 using namespace std;
 
+int PlikAdresatow::zwrocNajwyzszeIdZPliku (){
+    string linia;
+    fstream plik;
+    int idKontaktuBiezace=0;
+    int idKontaktuNajwyzsze=0;
+    plik.open("kontakty.txt",ios::in);
+    if (plik.good() == true)
+    {
+        do {
+            getline(plik,linia);
+            if (linia.empty());
+            else idKontaktuBiezace=wczytajIdZLiniiPliku(linia);
+            if (idKontaktuBiezace>idKontaktuNajwyzsze) idKontaktuNajwyzsze=idKontaktuBiezace;
+        }
+        while (!plik.eof());
+        plik.close();
+        plik.clear();
+    }
+    return idKontaktuNajwyzsze;
+}
 
-/*PlikAdresatow::PlikAdresatow(){
-    wczytajZPliku(wczytaniAdresaci);
-}*/
+int PlikAdresatow::wczytajIdZLiniiPliku (string linia){
+    int i=0;
+    string id;
+    vector <int> pozycjeKoncaCechy;
+    int idKontaktu;
+    int dlugoscLinii = linia.length();
+    while (i<dlugoscLinii) {
+        char znak=linia[i];
+        if (znak=='|')
+            pozycjeKoncaCechy.push_back(i);
+        i++;
+    }
+    idKontaktu=(konwertujNaInt(linia.substr(0,pozycjeKoncaCechy[0])));
+    return idKontaktu;
+}
 
 int PlikAdresatow::konwertujNaInt (string liczbaStringiem) {
     int liczba = atoi(liczbaStringiem.c_str());
@@ -31,7 +63,7 @@ void PlikAdresatow::dopiszDoPliku (Adresat nowyAdresat, int IdUzytkownika){
     plik.clear();
 }
 
-void PlikAdresatow::wczytajZPliku(vector <Adresat> &wczytaniAdresaci){
+void PlikAdresatow::wczytajZPliku(vector <Adresat> &wczytaniAdresaci, int idUzytkownika){
     string linia;
     fstream plik;
     plik.open("kontakty.txt",ios::in);
@@ -40,7 +72,7 @@ void PlikAdresatow::wczytajZPliku(vector <Adresat> &wczytaniAdresaci){
         do {
             getline(plik,linia);
             if (linia.empty());
-            else rozdzielLinieNaCechy(wczytaniAdresaci, linia);
+            else rozdzielLinieNaCechy(wczytaniAdresaci, linia, idUzytkownika);
         }
         while (!plik.eof());
         plik.close();
@@ -48,7 +80,7 @@ void PlikAdresatow::wczytajZPliku(vector <Adresat> &wczytaniAdresaci){
     }
 }
 
-void PlikAdresatow::rozdzielLinieNaCechy (vector <Adresat> &wczytaniAdresaci, string linia){
+void PlikAdresatow::rozdzielLinieNaCechy (vector <Adresat> &wczytaniAdresaci, string linia, int idUzytkownika){
     int i=0,dlugoscIDUzytkownika, dlugoscImie, dlugoscNazwisko, dlugoscTelefon, dlugoscEmail, dlugoscAdres;
     string id,imie,nazwisko,telefon,email,adres;
     vector <int> pozycjeKoncaCechy;
@@ -80,5 +112,5 @@ void PlikAdresatow::rozdzielLinieNaCechy (vector <Adresat> &wczytaniAdresaci, st
     dlugoscAdres=pozycjeKoncaCechy[6]-pozycjeKoncaCechy[5]-1;
     pojedynczyAdresat.ustawAdres(linia.substr(pozycjeKoncaCechy[5]+1,dlugoscAdres));
 
-    wczytaniAdresaci.push_back(pojedynczyAdresat);
+    if (pojedynczyAdresat.zwrocIdUzytkownika()==idUzytkownika)  wczytaniAdresaci.push_back(pojedynczyAdresat);
 }
