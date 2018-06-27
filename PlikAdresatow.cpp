@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
-#include <sstream>  // for string streams
+#include <sstream>
 #include <windows.h>
 
 
@@ -54,22 +54,21 @@ void PlikAdresatow::podmienWpis (Adresat zedytowanyAdresat) {
 }
 
 void PlikAdresatow::usunWpis(int idKontaktu){
-    Adresat tymczasowyAdresat;
-    string liniaTymczasowa, liniaGlowna;
+    string liniaGlowna;
     fstream tymczasowy, glowny;
     int idZGlownego, j=1;
     tymczasowy.open("temp.txt", fstream::app);
     glowny.open("kontakty.txt", fstream::in);
 
     if ((tymczasowy.good() == true)&&(glowny.good()==true)) {}
-
     do {
         getline(glowny,liniaGlowna);
         idZGlownego=wczytajIdZLiniiPliku(liniaGlowna);
-        if ((j!=1)&&(idZGlownego!=idKontaktu)) tymczasowy<<endl;
-        if (idZGlownego==idKontaktu);
-        else tymczasowy<<liniaGlowna;
-        j++;
+        if (idZGlownego!=idKontaktu) {
+            if (j==1)tymczasowy<<liniaGlowna;
+            else tymczasowy<<endl<<liniaGlowna;
+            j++;
+        }
     } while (!glowny.eof());
     tymczasowy.close();
     glowny.close();
