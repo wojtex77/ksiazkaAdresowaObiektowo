@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1529528463 source:c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\main.cpp
+1530132353 source:c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\main.cpp
 	<iostream>
 	<string>
 	<vector>
@@ -22,14 +22,18 @@
 	<cstdlib>
 	<windows.h>
 
-1529436979 c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\uzytkownicy.h
+1529529429 c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\uzytkownicy.h
 	"Uzytkownik.h"
 	<vector>
 
-1529527122 source:c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\plikadresatow.cpp
+1530132541 source:c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\plikadresatow.cpp
 	"PlikAdresatow.h"
 	<fstream>
 	<iostream>
+	<string>
+	<cstdlib>
+	<sstream>
+	<windows.h>
 
 1529441535 source:c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\adresat.cpp
 	<iostream>
@@ -37,16 +41,17 @@
 
 1529441535 c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\adresat.h
 
-1529528231 source:c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\adresaci.cpp
+1530132310 source:c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\adresaci.cpp
 	<iostream>
 	<vector>
+	<windows.h>
 	"Adresaci.h"
 
-1529528419 c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\adresaci.h
+1530131872 c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\adresaci.h
 	<vector>
 	"PlikAdresatow.h"
 
-1529527206 c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\plikadresatow.h
+1530132248 c:\users\admin\desktop\git\ksiazkaadresowaobiektowo\plikadresatow.h
 	<iostream>
 	"Adresat.h"
 	<vector>

@@ -56,6 +56,14 @@ int main() {
                 adresaciKsiazki.szukajPoNazwisku();
                 break;
             }
+            case '4': {
+                adresaciKsiazki.edytujAdresata(uzytkownicyKsiazki.zwrocIdZalogowanegoUzytkownika());
+                break;
+            }
+            case '5': {
+                adresaciKsiazki.usunAdresata(uzytkownicyKsiazki.zwrocIdZalogowanegoUzytkownika());
+                break;
+            }
             case '7':{
                 uzytkownicyKsiazki.zmienHaslo(uzytkownicyKsiazki.zwrocIdZalogowanegoUzytkownika());
                 break;

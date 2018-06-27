@@ -1,9 +1,85 @@
 #include "PlikAdresatow.h"
 #include <fstream>
 #include <iostream>
+#include <string>
+#include <cstdlib>
+#include <sstream>  // for string streams
+#include <windows.h>
 
 
 using namespace std;
+
+
+string PlikAdresatow::konwertujIntNaString (int liczba){
+    ostringstream str1;
+    str1 << liczba;
+    string liczbaStringiem = str1.str();
+    return liczbaStringiem;
+}
+
+string PlikAdresatow::scalAdresataDoLinii(Adresat &adresat, int idZalogowanegoUzytkownika){
+    string linia;
+    string idAdresataStringiem=konwertujIntNaString(adresat.zwrocId());
+    string idUzytkownikaStringiem=konwertujIntNaString(idZalogowanegoUzytkownika);
+    return linia=idAdresataStringiem+"|"+idUzytkownikaStringiem+"|"+adresat.zwrocImie()+"|"+adresat.zwrocNazwisko()+"|"+adresat.zwrocNumerTelefonu()+"|"+adresat.zwrocEmail()+"|"+adresat.zwrocAdres()+"|";
+}
+
+void PlikAdresatow::podmienWpis (Adresat zedytowanyAdresat) {
+    Adresat tymczasowyAdresat;
+    string liniaTymczasowa, liniaGlowna;
+    fstream tymczasowy, glowny;
+    int idZGlownego, j=1;
+    tymczasowy.open("temp.txt", fstream::app);
+    glowny.open("kontakty.txt", fstream::in);
+
+    if ((tymczasowy.good() == true)&&(glowny.good()==true)) {}
+
+    do {
+        getline(glowny,liniaGlowna);
+        if (j!=1) tymczasowy<<endl;
+        idZGlownego=wczytajIdZLiniiPliku(liniaGlowna);
+        if (idZGlownego==zedytowanyAdresat.zwrocId()) {
+            int idUzytkownikaZPliku=wczytajIdUzytkownikaZLiniiPliku(liniaGlowna);
+            tymczasowy<<scalAdresataDoLinii(zedytowanyAdresat, idUzytkownikaZPliku);
+        } else tymczasowy<<liniaGlowna;
+        j++;
+    } while (!glowny.eof());
+    tymczasowy.close();
+    glowny.close();
+    tymczasowy.clear();
+    glowny.clear();
+
+    remove("kontakty.txt");
+    rename("temp.txt","kontakty.txt");
+}
+
+void PlikAdresatow::usunWpis(int idKontaktu){
+    Adresat tymczasowyAdresat;
+    string liniaTymczasowa, liniaGlowna;
+    fstream tymczasowy, glowny;
+    int idZGlownego, j=1;
+    tymczasowy.open("temp.txt", fstream::app);
+    glowny.open("kontakty.txt", fstream::in);
+
+    if ((tymczasowy.good() == true)&&(glowny.good()==true)) {}
+
+    do {
+        getline(glowny,liniaGlowna);
+        idZGlownego=wczytajIdZLiniiPliku(liniaGlowna);
+        if ((j!=1)&&(idZGlownego!=idKontaktu)) tymczasowy<<endl;
+        if (idZGlownego==idKontaktu);
+        else tymczasowy<<liniaGlowna;
+        j++;
+    } while (!glowny.eof());
+    tymczasowy.close();
+    glowny.close();
+    tymczasowy.clear();
+    glowny.clear();
+
+    remove("kontakty.txt");
+    rename("temp.txt","kontakty.txt");
+
+}
 
 int PlikAdresatow::zwrocNajwyzszeIdZPliku (){
     string linia;
@@ -42,6 +118,24 @@ int PlikAdresatow::wczytajIdZLiniiPliku (string linia){
     return idKontaktu;
 }
 
+int PlikAdresatow::wczytajIdUzytkownikaZLiniiPliku (string linia){
+    int i=0, dlugoscIDUzytkownika=0;
+    string id;
+    vector <int> pozycjeKoncaCechy;
+    int idKontaktu;
+    int dlugoscLinii = linia.length();
+    while (i<dlugoscLinii) {
+        char znak=linia[i];
+        if (znak=='|')
+            pozycjeKoncaCechy.push_back(i);
+        i++;
+    }
+    idKontaktu=(konwertujNaInt(linia.substr(0,pozycjeKoncaCechy[0])));
+
+    dlugoscIDUzytkownika=pozycjeKoncaCechy[1]-pozycjeKoncaCechy[0]-1;
+    return konwertujNaInt(linia.substr(pozycjeKoncaCechy[0]+1,dlugoscIDUzytkownika));
+}
+
 int PlikAdresatow::konwertujNaInt (string liczbaStringiem) {
     int liczba = atoi(liczbaStringiem.c_str());
     return liczba;
@@ -56,7 +150,8 @@ void PlikAdresatow::dopiszDoPliku (Adresat nowyAdresat, int IdUzytkownika){
         if (plik.tellg() != 0) {
             plik << endl;
         }
-        plik<<nowyAdresat.zwrocId()<<"|"<<IdUzytkownika<<"|"<<nowyAdresat.zwrocImie()<<"|"<<nowyAdresat.zwrocNazwisko()<<"|"<<nowyAdresat.zwrocNumerTelefonu()<<"|"<<nowyAdresat.zwrocEmail()<<"|"<<nowyAdresat.zwrocAdres()<<"|";
+        string linia=scalAdresataDoLinii(nowyAdresat, IdUzytkownika);
+        plik<<linia;
         i++;
     } else cout << "wystapil problem z plikiem";
     plik.close();
